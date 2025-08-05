@@ -1,0 +1,8 @@
+{
+	"ioo-powerdns": {
+		"TYPE": "POWERDNS",
+		"apiKey": "$POWERDNS_API_KEY",
+		"apiUrl": "$POWERDNS_API_URL",
+		"serverName": "localhost"
+	}
+}
