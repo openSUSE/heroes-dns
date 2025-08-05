@@ -1,0 +1,66 @@
+image:
+  name: registry.opensuse.org/opensuse/infrastructure/dns/containers/dnscontrol:latest
+  entrypoint: [""]
+
+stages:
+  - check
+  - preview
+  - deploy
+
+.common:
+  tags:
+    - docker
+
+.common_mr:
+  extends:
+    - .common
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event' || $CI_COMMIT_BRANCH == 'production'
+      when: on_success
+
+lint:
+  extends:
+    - .common_mr
+  stage: check
+  script:
+    - out="../"$(basename $PWD)"-fmt"
+    - mkdir "$out"
+    - find . -mindepth 1 -type d -not -path './.*' -exec mkdir "$out"/{} \;
+    - find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
+    - diff -ru . ../dns-fmt
+
+preview:
+  extends:
+    - .common
+  stage: preview
+  script:
+    - dnscontrol check-creds ioo-powerdns
+    - dnscontrol preview --expect-no-changes --report report.json
+    - rc="$?"
+    - c=$(jq '[.[]["corrections"]]|add' report.json)
+    - |
+        if [ "$rc" -eq 0 ] && [ "$c" -gt 0 ]
+        then
+          cp .gitlab-ci.d/apply_really.yml apply.yml
+        elif [ "$rc" -ne 0 ]
+        then
+          exit "$rc"
+        else
+          cp .gitlab-ci.d/apply_dummy.yml apply.yml
+        fi
+  artifacts:
+    expire_in: 30d
+    paths:
+      - report.json
+
+prepare_deploy:
+  stage: deploy
+  trigger:
+    strategy: depend
+    include:
+      - artifact: apply.yml
+        job: preview
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'production'
+  variables:
+    PARENT_PIPELINE_ID: $CI_PIPELINE_ID

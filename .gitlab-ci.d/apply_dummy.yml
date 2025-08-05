@@ -1,0 +1,10 @@
+deploy:
+  image:
+    name: opensuse/busybox:latest
+  stage: deploy
+  tags:
+    - docker
+  script:
+    - echo Nothing to do.
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'production'

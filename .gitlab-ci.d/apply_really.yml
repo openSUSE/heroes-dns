@@ -1,0 +1,21 @@
+deploy:
+  image:
+    name: registry.opensuse.org/opensuse/infrastructure/dns/containers/dnscontrol:latest
+    entrypoint: [""]
+  stage: deploy
+  tags:
+    - docker
+  script:
+    # TODO
+    - echo dnscontrol push --report report.json
+  needs:
+    - pipeline: "$PARENT_PIPELINE_ID"
+      job: preview
+  rules:
+    - if: $CI_COMMIT_REF_NAME == 'production'
+      when: manual
+  artifacts:
+    expire_in: 30d
+    paths:
+      - report.json
+  interruptible: false
