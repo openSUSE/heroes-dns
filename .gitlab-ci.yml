@@ -24,6 +24,11 @@ lint:
   stage: check
   script:
     - out="../"$(basename $PWD)"-fmt"
+    - |
+        if [ -d "$out" ]
+        then
+          rm -r "$out"
+        fi
     - mkdir "$out"
     - find . -mindepth 1 -type d -not -path './.*' -exec mkdir "$out"/{} \;
     - find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
