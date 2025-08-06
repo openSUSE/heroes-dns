@@ -56,6 +56,7 @@ preview:
   artifacts:
     expire_in: 30d
     paths:
+      - apply.yml
       - report.json
 
 prepare_deploy:
