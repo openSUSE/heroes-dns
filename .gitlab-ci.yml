@@ -32,7 +32,7 @@ lint:
     - mkdir "$out"
     - find . -mindepth 1 -type d -not -path './.*' -exec mkdir "$out"/{} \;
     - find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
-    - diff -rux creds.json -x '.*' . ../dns-fmt
+    - find . -type f -name '*.js' | xargs -I{} diff {} "$out"/{}
 
 preview:
   extends:
