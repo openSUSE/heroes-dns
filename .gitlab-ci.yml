@@ -34,6 +34,13 @@ lint:
     - find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
     - find . -type f -name '*.js' | xargs -I{} diff {} "$out"/{}
 
+check:
+  extends:
+    - .common_mr
+  stage: check
+  script:
+    - dnscontrol check
+
 preview:
   extends:
     - .common
