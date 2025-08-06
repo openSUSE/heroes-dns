@@ -46,7 +46,11 @@ preview:
     - .common
   stage: preview
   script:
-    - dnscontrol check-creds ioo-powerdns
+    - |
+        for provider in $(jq -r 'keys | .[]' creds.json)
+        do
+          dnscontrol check-creds "$provider"
+        done
     - rc=0
     - dnscontrol preview --expect-no-changes --report report.json || rc=$?
     - c=$(jq '[.[]["corrections"]]|add' report.json)
