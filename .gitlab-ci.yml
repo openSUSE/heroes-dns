@@ -44,7 +44,7 @@ preview:
     - dnscontrol preview --expect-no-changes --report report.json || rc=$?
     - c=$(jq '[.[]["corrections"]]|add' report.json)
     - |
-        if [ "$rc" -eq 0 ] && [ "$c" -gt 0 ]
+        if [ "$rc" -eq 1 ] && [ "$c" -gt 0 ]
         then
           cp .gitlab-ci.d/apply_really.yml apply.yml
         elif [ "$rc" -ne 0 ]
