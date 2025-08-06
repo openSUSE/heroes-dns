@@ -6,8 +6,7 @@ deploy:
   tags:
     - docker
   script:
-    # TODO
-    - echo dnscontrol push --report report.json
+    - dnscontrol push --report report.json
   needs:
     - pipeline: "$PARENT_PIPELINE_ID"
       job: preview
