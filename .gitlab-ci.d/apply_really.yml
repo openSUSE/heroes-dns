@@ -6,7 +6,12 @@ deploy:
   tags:
     - docker
   script:
-    - dnscontrol push --report report.json
+    - |
+        if [ -z "$POWERDNS_API_KEY_RW" ]
+        then
+          exit 1
+        fi
+    - POWERDNS_API_KEY=$POWERDNS_API_KEY_RW dnscontrol push --report report.json
   needs:
     - pipeline: "$PARENT_PIPELINE_ID"
       job: preview

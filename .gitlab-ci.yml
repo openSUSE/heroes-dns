@@ -47,6 +47,16 @@ preview:
   stage: preview
   script:
     - |
+        if [ -z "$POWERDNS_API_KEY_RW" ] && [ -n "$POWERDNS_API_KEY_RO" ]
+        then
+          export POWERDNS_API_KEY=$POWERDNS_API_KEY_RO
+        elif [ -n "$POWERDNS_API_KEY_RW" ]
+        then
+          export POWERDNS_API_KEY=$POWERDNS_API_KEY_RW
+        else
+          exit 1
+        fi
+    - |
         for provider in $(jq -r 'keys | .[]' creds.json)
         do
           dnscontrol check-creds "$provider"
