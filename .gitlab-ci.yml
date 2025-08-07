@@ -43,7 +43,7 @@ check:
 
 preview:
   extends:
-    - .common
+    - .common_mr
   stage: preview
   script:
     - |
