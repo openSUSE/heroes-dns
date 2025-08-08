@@ -10,4 +10,5 @@ DEFAULTS(
     DnsProvider(DSP_OPENSUSE),
     NS_OPENSUSE,
     DefaultTTL(43200),
+    IGNORE("_acme-challenge{,.*}", "TXT"),
 );
