@@ -23,6 +23,7 @@ lint:
     - .common_mr
   stage: check
   script:
+    - bin/lint.pl
     - out="../"$(basename $PWD)"-fmt"
     - |
         if [ -d "$out" ]
@@ -32,7 +33,7 @@ lint:
     - mkdir "$out"
     - find . -mindepth 1 -type d -not -path './.*' -exec mkdir "$out"/{} \;
     - find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
-    - find . -type f -name '*.js' | xargs -I{} diff {} "$out"/{}
+    - find . -type f -name '*.js' | xargs -I{} diff -w {} "$out"/{}
 
 check:
   extends:
