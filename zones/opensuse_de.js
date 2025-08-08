@@ -1,8 +1,6 @@
 D("opensuse.de", REG_OPENSUSE,
     SOA("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 1209600, 86400),
     A("test", "195.135.221.140"),
-    TXT("_acme-challenge", "5xd4qIRHn9XmSpdcSZp4o3RB7rafom_GH3jQ0ilAfgs", TTL(3600)),
-    TXT("_acme-challenge", "e73zusz8Kq3qipv05PcdAS2F1phn-yCLs3wGUkve1X4", TTL(3600)),
     TXT("_dmarc", "v=DMARC1; p=none; pct=100; rua=mailto:admin-auto@opensuse.org!5m; ruf=mailto:admin-auto@opensuse.org!5m", TTL(1800)),
     AAAA("*", "2001:67c:2178:8::16"),
     A("*", "195.135.221.140"),
