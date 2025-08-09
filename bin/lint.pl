@@ -27,16 +27,20 @@ my $status = 0;
 foreach my $file (@files) {
   open(my $fh, '<', $file) or die "$!";
 
+  my $complained_soa = 0;
+
   my $file_status = 0;
 
   my $found_d_start = 0;
   my $found_d_end = 0;
   my $found_soa = 0;
+  my $found_txt = 0;
+  my $txt_cont = 0;
+  my $txt_cont_1 = 0;
+  my $txt_cont_2 = 0;
 
   # disable zone file specific logic for "library" files
   my $is_zone = substr($file, 0, 7) ne 'zones/_';
-
-  my $act = 0;
 
   while(<$fh>) {
     chomp;
@@ -48,13 +52,13 @@ foreach my $file (@files) {
 
     next unless $is_zone;
 
-    if ( $act && $found_soa ) {
+    if ( !$complained_soa && $found_soa ) {
       if ( $_ !~ /^$/ ) {
         print "Non-conformant formatting in $file, line $. - line after SOA record should be empty.\n";
         $file_status = 1;
       }
 
-      $act = 0;
+      $complained_soa = 1;
     }
 
     if ( $_ =~ /^D/ ) {
@@ -78,36 +82,62 @@ foreach my $file (@files) {
       if ( $_ =~ /^(\s+)(.*)/ ) {
         my $fun = $2;
         my $found_soa_inner = 0;
-
-        # accept only n amount of spaces
-        if ( length($1) != 4 ) {
-          print "Non-conformant indentation in $file, line $.\n";
-          $file_status = 1;
-        }
+        my $l = length($1);
 
         # parse function call followed by spaces plus function parameters plus trailing comma
-        if ( $fun =~ /^(\w+)\(/ ) {
+        if ( $fun =~ /^(\w+)\(/ && !$txt_cont ) {
           print "Non-conformant function call in $file, line $. - missing space between function name and opening parenthesis.\n";
-        }
-        elsif ( $fun !~ /^(\w+)(\s+)\(.*\),$/ ) {
-          print "Invalid function call in $file, line $.\n";
           $file_status = 1;
         }
-        else {
-          if ( $1 eq 'SOA' ) {
-            $found_soa_inner = 1;
+        # is not one of:
+        #  - single line function: TXT ("foo", "bar") <options> ),
+        #  - start of multi-line function
+        elsif ( $fun !~ /^(\w+)(\s+)\((\".*\"|\d+)(,|.*\),)$/ ) {
+          # is a continuation of a TXT function started in a previous line
+          if ( $found_txt && $_ =~ /^\s{18}".*",$/ ) {
+            $txt_cont = 1; $txt_cont_1 = 1;
+          }
+          elsif ( $found_txt && $_ =~ /^\s{96}.*\),$/ ) {
+            $txt_cont = 1; $txt_cont_2 = 1;
+          }
+          elsif ( $txt_cont ) {
+            $txt_cont = 0; $txt_cont_1 = 0; $txt_cont_2 = 0;
           }
 
-          # accept only gaps with n amount of spaces to keep uniform indentation even with long function names such as DefaultTTL() or OPENPGPKEY()
-          if (length($1) + length($2) != 11) {
-            print "Non-conformant function spacing in $file, line $.\n";
+          # is not one of:
+          #  - second line of a TXT function started on the previous line: "bar" ... ),
+          #  - first line of a TXT function continued on the next line: TXT ("foo",
+          #  - ending of a TXT function started on a previous line
+          # separate if block instead of inlining into elsif above to preserve $1 (function name) for use inside else
+          if ( ! $txt_cont && ! ( $found_txt && $_ =~ /^\s{18}".*",\s+.*\),$/ ) && $fun !~ /^TXT\s{8}\(".*",$/ && ( $txt_cont && $1 !~ /^\s{96}[\w\d\(\)]{0,10}\),$/ ) ) {
+            print "Invalid function call in $file, line $.\n";
+            $file_status = 1;
           }
+
+          if ( $found_txt && !$txt_cont ) { $found_txt = 0; $txt_cont = 0; $txt_cont_1 = 0; $txt_cont_2 = 0; };
+        }
+        else {
+          my $reset = 0;
+
+          # mark functions requiring additional logic in the following line
+          if ( $1 eq 'SOA' ) { $found_soa_inner = 1 }
+          elsif ( $1 eq 'TXT' ) { $found_txt = 1 }
+
+          # accept only gaps with n amount of spaces to keep uniform indentation even with long function names such as DefaultTTL() or OPENPGPKEY()
+          if ( length($1) + length($2) != 11 ) {
+            print "Non-conformant function spacing in $file, line $.\n";
+            $file_status = 1;
+          }
+        }
+
+        if ( ( !$txt_cont && $l != 4 ) || ( $found_txt && $txt_cont_1 && $l != 18 ) && ( $found_txt && $txt_cont_2 && $l != 96 ) ) {
+          print "Non-conformant indentation in $file, line $. $found_txt $txt_cont $l\n";
+          $file_status = 1;
         }
 
         # also accept invalid spacing here to avoid misleading warning about missing SOA record
         if ( $found_soa_inner || $fun =~ /SOA\s*\(/ ) {
           # enable additional logic in next line iteration
-          $act = 1;
           $found_soa = 1;
         }
       }
@@ -131,10 +161,12 @@ foreach my $file (@files) {
 
     if (!$found_d_end) {
       print "Missing line with an exact ending of D() in $file.\n";
+      $file_status = 1;
     }
 
-    if (!$found_soa) {
+    if (!$complained_soa && !$found_soa) {
       print "Missing SOA record in $file.\n";
+      $file_status = 1;
     }
 
     if ($file_status) {
