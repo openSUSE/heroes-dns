@@ -93,13 +93,15 @@ foreach my $file (@files) {
         #  - single line function: TXT ("foo", "bar") <options> ),
         #  - start of multi-line function
         elsif ( $fun !~ /^(\w+)(\s+)\((\".*\"|\d+)(,|.*\),)$/ ) {
-          # is a continuation of a TXT function started in a previous line
-          if ( $found_txt && $_ =~ /^\s{18}".*",$/ ) {
+          # is a continuation and optional ending of a TXT function started in a previous line
+          if ( $found_txt && $_ =~ /^\s{18}".*"(?:,\s+(?:[\w\d\(\)]{0,10}\s+)?\),|,|\s+\),)$/ ) {
             $txt_cont = 1; $txt_cont_1 = 1;
           }
+          # is a continuation and definite ending of a TXT function started in a previous line
           elsif ( $found_txt && $_ =~ /^\s{96}.*\),$/ ) {
             $txt_cont = 1; $txt_cont_2 = 1;
           }
+          # clear markers from previous lines, the current one is not part of a multi-line function
           elsif ( $txt_cont ) {
             $txt_cont = 0; $txt_cont_1 = 0; $txt_cont_2 = 0;
           }
@@ -114,7 +116,7 @@ foreach my $file (@files) {
             $file_status = 1;
           }
 
-          if ( $found_txt && !$txt_cont ) { $found_txt = 0; $txt_cont = 0; $txt_cont_1 = 0; $txt_cont_2 = 0; };
+          if ( $found_txt && !$txt_cont ) { $found_txt = 0; };
         }
         else {
           my $reset = 0;
@@ -122,6 +124,10 @@ foreach my $file (@files) {
           # mark functions requiring additional logic in the following line
           if ( $1 eq 'SOA' ) { $found_soa_inner = 1 }
           elsif ( $1 eq 'TXT' ) { $found_txt = 1 }
+
+          if ( $1 eq 'TXT' ) { # TODO other record types should be allowed to follow a multi-line TXT one too, ( $1 =~ /^[A-Z]+/ ) ?
+            if ( $txt_cont ) { $txt_cont = 0; $txt_cont_1 = 0; $txt_cont_2 = 0; };
+          }
 
           # accept only gaps with n amount of spaces to keep uniform indentation even with long function names such as DefaultTTL() or OPENPGPKEY()
           if ( length($1) + length($2) != 11 ) {
