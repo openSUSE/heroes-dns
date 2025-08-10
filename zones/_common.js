@@ -6,6 +6,10 @@ var NS_OPENSUSE = [
     NAMESERVER("ns4.opensuse.org."), // PRG2
 ];
 
+var OPENSUSE_PARKING = [
+    SPF_OPENSUSE_NO_MAIL,
+]
+
 DEFAULTS(
     DnsProvider(DSP_OPENSUSE),
     NS_OPENSUSE,

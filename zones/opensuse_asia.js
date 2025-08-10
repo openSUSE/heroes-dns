@@ -1,6 +1,8 @@
 D("opensuse.asia", REG_OPENSUSE,
     SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 604800, 3600),
 
+    OPENSUSE_PARKING,
+
     DefaultTTL (1800),
 
     AAAA       ("@",                              "2001:67c:2178:8::16"                                   ),
@@ -10,6 +12,4 @@ D("opensuse.asia", REG_OPENSUSE,
 
     MX         ("@",                              42, "mx1.opensuse.org."                                 ),
     MX         ("@",                              42, "mx2.opensuse.org."                                 ),
-
-    TXT        ("@",                              "v=spf1 -all",                                TTL(300)  ),
 );

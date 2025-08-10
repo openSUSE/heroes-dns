@@ -1,6 +1,8 @@
 D("opensuse.mx", REG_OPENSUSE,
     SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 1209600, 86400),
 
+    SPF_OPENSUSE_TEST,
+
     AAAA       ("@",                              "2001:67c:2178:8::16"                                   ),
     A          ("@",                              "195.135.221.140"                                       ),
     AAAA       ("*",                              "2001:67c:2178:8::16"                                   ),
@@ -8,7 +10,4 @@ D("opensuse.mx", REG_OPENSUSE,
 
     MX         ("@",                              42, "mx1.opensuse.org."                                 ),
     MX         ("@",                              42, "mx2.opensuse.org."                                 ),
-
-    TXT        ("@",                              "v=spf1 include:_spf.opensuse.mx +all",       TTL(300)  ),
-    TXT        ("_spf", "v=spf1 ip4:195.135.220.0/23 ip6:2001:67c:2178:8::/64 mx -all",         TTL(300)  ),
 );

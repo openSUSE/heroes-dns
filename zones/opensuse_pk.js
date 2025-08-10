@@ -3,6 +3,8 @@ D("opensuse.pk", REG_OPENSUSE,
 
     DefaultTTL (86400),
 
+    SPF_OPENSUSE_MISC,
+
     AAAA       ("@",                              "2001:67c:2178:8::16"                                   ),
     A          ("@",                              "195.135.221.140"                                       ),
     AAAA       ("*",                              "2001:67c:2178:8::16"                                   ),
@@ -10,6 +12,4 @@ D("opensuse.pk", REG_OPENSUSE,
 
     MX         ("@",                              42, "mx1.opensuse.org."                                 ),
     MX         ("@",                              42, "mx2.opensuse.org."                                 ),
-
-    TXT        ("@", "v=spf1 ip4:91.193.113.64/27 ip4:143.186.213.0/24 ip4:147.2.0.0/16 ip4:149.44.0.0/16 ip4:195.135.220.0/23 ip6:2001:67c:2178::/48 ip6:2620:113:8044::/48 ip6:2a01:138:a004::/48 ip6:2a07:de40:401::/48 mx ~all"),
 );
