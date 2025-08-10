@@ -52,8 +52,6 @@ D("infra.opensuse.org", REG_OPENSUSE,
     AAAA       ("falkor20",             "2a07:de40:b27e:1201::f0"                                         ),
     AAAA       ("falkor21",             "2a07:de40:b27e:1201::f1"                                         ),
     AAAA       ("falkor22",             "2a07:de40:b27e:1201::f2"                                         ),
-    AAAA       ("freeipa",              "2a07:de40:b27e:1203::138",                             TTL(1200) ),
-    A          ("freeipa",              "172.16.164.166",                                       TTL(1200) ),
     AAAA       ("galera1",              "2a07:de40:b27e:1203::b21"                                        ),
     AAAA       ("galera2",              "2a07:de40:b27e:1203::b22"                                        ),
     AAAA       ("galera3",              "2a07:de40:b27e:1203::b23"                                        ),
@@ -259,14 +257,4 @@ D("infra.opensuse.org", REG_OPENSUSE,
     CNAME      ("wiki",                 "riesling.infra.opensuse.org."                                    ),
 
     MX         ("@",                    42, "hel.infra.opensuse.org."                                     ),
-
-    SRV        ("_kerberos._udp", 0, 100, 88, "freeipa.infra.opensuse.org."),
-    SRV        ("_kerberos-master._udp", 0, 100, 88, "freeipa.infra.opensuse.org."),
-    SRV        ("_kpasswd._udp", 0, 100, 464, "freeipa.infra.opensuse.org."),
-    SRV        ("_kerberos._tcp", 0, 100, 88, "freeipa.infra.opensuse.org."),
-    SRV        ("_kerberos-master._tcp", 0, 100, 88, "freeipa.infra.opensuse.org."),
-    SRV        ("_ldap._tcp", 0, 100, 389, "freeipa.infra.opensuse.org."),
-    SRV        ("_kpasswd._tcp", 0, 100, 464, "freeipa.infra.opensuse.org."),
-
-    TXT        ("_kerberos",            "INFRA.OPENSUSE.ORG"                                              ),
 );
