@@ -21,7 +21,7 @@ use warnings;
 
 use File::Find::Rule;
 
-my @files = File::Find::Rule->file()->name( '*.js' )->in( 'zones' );
+my @files = File::Find::Rule->file()->mindepth(1)->maxdepth(1)->name( '*.js' )->in( 'zones' );
 my $status = 0;
 
 foreach my $file (@files) {
