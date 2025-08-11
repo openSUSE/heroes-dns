@@ -3,6 +3,8 @@ D("opensuse.org", REG_OPENSUSE,
 
     DefaultTTL (3600),
 
+    SPF_OPENSUSE_ALL_MAIL,
+
     A          ("@",                    "195.135.223.50"                                                  ),
     AAAA       ("@",                    "2a07:de40:b27e:1204::10"                                         ),
     AAAA       ("atlas",                "2a07:de40:b27e:1204::10",                             TTL(1800)  ),
@@ -181,8 +183,6 @@ D("opensuse.org", REG_OPENSUSE,
 
     TXT        ("@",
                   "google-site-verification=lSkTjo9mv48fTfzd-vZiZ2Yih6b8CJ-ek4Xij9v7KTY",       TTL(1800) ),
-    TXT        ("@",
-                  "v=spf1 include:_spf.opensuse.org ?all",                                      TTL(1800) ),
     TXT        ("_atproto",
                   "did=did:plc:xnq3c7qdsddij7sqxq3l7qep",                                       TTL(300)  ),
     TXT        ("_dmarc",
@@ -197,9 +197,6 @@ D("opensuse.org", REG_OPENSUSE,
                   "0f4907f36a",                                                                 TTL(1800) ),
     TXT        ("_github-challenge-opensuse.www",
                   "54d4817b88"                                                                            ),
-    TXT        ("_spf",
-                  "v=spf1 ip4:91.193.113.64/27 ip4:143.186.213.0/24 ip4:147.2.0.0/16 ip4:149.44.0.0/16 ip6:2a01:138:a004::/64 ip6:2a07:de40:401::/64 ip6:2a07:de40:b27e:1204::/64 a:smtp-out1.suse.de a:smtp-out2.suse.de a:mx1.infra.opensuse.org a:mx2.infra.opensuse.org mx:opensuse.org ?all",
-                                                                                                TTL(1800) ),
     TXT        ("lists",
                   "v=spf1 mx ~all"                                                                        ),
 );
