@@ -1,5 +1,4 @@
 D("opensuse.mu", REG_OPENSUSE,
-    SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 1209600, 86400, TTL(43200)),
 
     DefaultTTL (86400),
 

@@ -15,4 +15,6 @@ DEFAULTS(
     NS_OPENSUSE,
     DefaultTTL(43200),
     IGNORE("_acme-challenge{,.*}", "TXT"),
+
+    SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 1209600, 86400),
 );

@@ -1,5 +1,4 @@
 D("opensuse.pk", REG_OPENSUSE,
-    SOA        ("@", "a.misconfigured.dns.server.invalid.", "hostmaster.opensuse.pk.", 10800, 3600, 604800, 3600, TTL(3600)),
 
     DefaultTTL (86400),
 

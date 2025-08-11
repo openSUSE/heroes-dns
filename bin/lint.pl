@@ -170,8 +170,8 @@ foreach my $file (@files) {
       $file_status = 1;
     }
 
-    if (!$complained_soa && !$found_soa) {
-      print "Missing SOA record in $file.\n";
+    if ($found_soa) {
+      print "Unexpected SOA record in $file, it's part of DEFAULTS.\n";
       $file_status = 1;
     }
 

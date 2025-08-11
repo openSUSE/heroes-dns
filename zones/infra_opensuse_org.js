@@ -1,5 +1,4 @@
 D("infra.opensuse.org", REG_OPENSUSE,
-    SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 3600, 900, 1209600, 3600),
 
     DefaultTTL (3600),
 

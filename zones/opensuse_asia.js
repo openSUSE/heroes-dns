@@ -1,5 +1,4 @@
 D("opensuse.asia", REG_OPENSUSE,
-    SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 604800, 3600),
 
     OPENSUSE_PARKING,
 
