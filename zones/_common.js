@@ -9,10 +9,10 @@ var NS_OPENSUSE = [
 var OPENSUSE_PARKING = [
     SPF_OPENSUSE_NO_MAIL,
 
-    AAAA       ("@",                              "2001:67c:2178:8::16"                                   ),
-    A          ("@",                              "195.135.221.140"                                       ),
-    AAAA       ("*",                              "2001:67c:2178:8::16"                                   ),
-    A          ("*",                              "195.135.221.140"                                       ),
+    AAAA       ("@",                              "2a07:de40:b27e:1204::10"                               ),
+    A          ("@",                              "195.135.223.50"                                        ),
+
+    CNAME      ("*",                              "redirector.opensuse.org."                              ),
 
     MX         ("@",                              42, "mx1.opensuse.org."                                 ),
     MX         ("@",                              42, "mx2.opensuse.org."                                 ),
