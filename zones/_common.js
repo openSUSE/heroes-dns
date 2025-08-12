@@ -6,9 +6,7 @@ var NS_OPENSUSE = [
     NAMESERVER("ns4.opensuse.org."), // PRG2
 ];
 
-var OPENSUSE_PARKING = [
-    SPF_OPENSUSE_NO_MAIL,
-
+var OPENSUSE_PARKING_EXCEPT_SPF = [
     AAAA       ("@",                              "2a07:de40:b27e:1204::10"                               ),
     A          ("@",                              "195.135.223.50"                                        ),
 
@@ -16,6 +14,12 @@ var OPENSUSE_PARKING = [
 
     MX         ("@",                              42, "mx1.opensuse.org."                                 ),
     MX         ("@",                              42, "mx2.opensuse.org."                                 ),
+]
+
+var OPENSUSE_PARKING = [
+    OPENSUSE_PARKING_EXCEPT_SPF,
+
+    SPF_OPENSUSE_NO_MAIL,
 ]
 
 DEFAULTS(
