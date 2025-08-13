@@ -3,6 +3,7 @@ D("opensuse.org", REG_OPENSUSE,
     DefaultTTL (3600),
 
     SPF_OPENSUSE_ALL_MAIL,
+    MX_OPENSUSE,
 
     A          ("@",                    "195.135.223.50"                                                  ),
     AAAA       ("@",                    "2a07:de40:b27e:1204::10"                                         ),
@@ -165,8 +166,6 @@ D("opensuse.org", REG_OPENSUSE,
     CNAME      ("stage-main-repos",     "stage3.opensuse.org.",                                 TTL(600)  ),
     CNAME      ("status",               "proxy-ipx1.opensuse.org."                                        ),
 
-    MX         ("@",                    42, "mx1.opensuse.org."                                           ),
-    MX         ("@",                    42, "mx2.opensuse.org."                                           ),
     MX         ("code",                 42, "mx2.opensuse.org."                                           ),
     MX         ("code",                 42, "mx1.opensuse.org."                                           ),
     MX         ("forums",                0, "mx2.opensuse.org."                                           ),

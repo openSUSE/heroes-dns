@@ -6,14 +6,18 @@ var NS_OPENSUSE = [
     NAMESERVER("ns4.opensuse.org."), // PRG2
 ];
 
+var MX_OPENSUSE = [
+    MX         ("@",                              42, "mx1.opensuse.org."                                 ),
+    MX         ("@",                              42, "mx2.opensuse.org."                                 ),
+];
+
 var OPENSUSE_PARKING_EXCEPT_SPF = [
     AAAA       ("@",                              "2a07:de40:b27e:1204::10"                               ),
     A          ("@",                              "195.135.223.50"                                        ),
 
     CNAME      ("*",                              "redirector.opensuse.org."                              ),
 
-    MX         ("@",                              42, "mx1.opensuse.org."                                 ),
-    MX         ("@",                              42, "mx2.opensuse.org."                                 ),
+    MX_OPENSUSE,
 ]
 
 var OPENSUSE_PARKING = [
