@@ -1,3 +1,16 @@
+// DMARC for all domains
+var DMARC_OPENSUSE_ALL_MAIL = DMARC_BUILDER({
+    percent: 100,
+    policy: "none",
+    rua: [
+        "mailto:admin-auto@opensuse.org!5m",
+    ],
+    ruf: [
+        "mailto:admin-auto@opensuse.org!5m",
+    ],
+    ttl: 1800,
+})
+
 // SPF for domains not used for email
 var SPF_OPENSUSE_NO_MAIL = SPF_BUILDER({
     label: "@",
