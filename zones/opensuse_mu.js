@@ -4,9 +4,7 @@ D("opensuse.mu", REG_OPENSUSE,
 
     SPF_OPENSUSE_NO_MAIL,
 
-    AAAA       ("@",                              "2c0f:e8f8:2000:233::125d:530a"                         ),
     A          ("@",                              "102.222.106.230",                            TTL(43200)),
-    AAAA       ("*",                              "2c0f:e8f8:2000:233::125d:530a"                         ),
     A          ("*",                              "102.222.106.230"                                       ),
 
     A          ("mirror.kaldera",                 "169.255.161.244"                                       ),
