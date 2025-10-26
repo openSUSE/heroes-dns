@@ -26,13 +26,23 @@ var OPENSUSE_PARKING = [
     SPF_OPENSUSE_NO_MAIL,
 ]
 
-DEFAULTS(
+var DEFAULT_BASE = [
     DnsProvider(DSP_OPENSUSE),
     NS_OPENSUSE,
     DefaultTTL(43200),
     IGNORE("_acme-challenge{,.*}", "TXT"),
+];
 
+var DEFAULT_SOA = [
     SOA        ("@", "ns1.opensuse.org.", "admin.opensuse.org.", 7200, 7200, 1209600, 86400),
+];
 
+var DEFAULT_ALL = [
+    DEFAULT_BASE,
+    DEFAULT_SOA,
     DMARC_OPENSUSE_ALL_MAIL,
+];
+
+DEFAULTS(
+    DEFAULT_ALL,
 );
