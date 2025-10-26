@@ -71,6 +71,11 @@ foreach my $file (@files) {
         $file_status = 1;
       }
     }
+    elsif ( $file eq 'zones/infra_opensuse_org.js' && $_ =~ /^\);$/ ) {
+      # TODO: parse additional function calls
+      $is_zone = 0;
+      next;
+    }
     # parse );
     # as we expect D() to be the only top-level function in the file, the function ending can only belong to D()
     elsif ( $_ =~ /^\);$/ ) {
