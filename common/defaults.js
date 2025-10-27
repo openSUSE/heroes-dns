@@ -1,3 +1,5 @@
+require("./email.js");
+
 var NS_OPENSUSE = [
     NAMESERVER_TTL("12h"),
     NAMESERVER("ns1.opensuse.org."), // NUE-IPX

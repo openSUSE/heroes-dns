@@ -1,6 +1,6 @@
 /*
   THIS FILE IS GENERATED, PLEASE DO NOT EDIT IT DIRECTLY
-  `bin/generate-from-salt.pl > zones/_infra.js`
+  `bin/generate-from-salt.pl > common/infra.js`
 */
 
 var HOSTS_OPENSUSE = {
