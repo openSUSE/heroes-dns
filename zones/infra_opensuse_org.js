@@ -98,7 +98,6 @@ D("infra.opensuse.org", REG_OPENSUSE,
     CNAME      ("stage3",               "stage3.opensuse.org."                                            ),
     CNAME      ("status1",              "ipx-status1.infra.opensuse.org."                                 ),
     CNAME      ("stonehat",             "ipx-stonehat.infra.opensuse.org."                                ),
-    CNAME      ("syslog",               "monitor.infra.opensuse.org."                                     ),
     CNAME      ("wiki",                 "riesling.infra.opensuse.org."                                    ),
 
     MX         ("@",                    42, "hel.infra.opensuse.org."                                     ),
