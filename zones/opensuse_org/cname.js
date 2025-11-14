@@ -237,4 +237,10 @@ CNAME_BULK("opensuse.org", {
           "po1-registry",
       ],
   },
+  "stage": {
+      "10m": [
+          "rsync-repositories",
+          "stage-repositories",
+      ],
+  },
 });
