@@ -39,6 +39,7 @@ var HOSTS_OPENSUSE = {
     "kani1": ["2a07:de40:b27e:1210::a"],
     "kani2": ["2a07:de40:b27e:1210::b"],
     "kubic": ["2a07:de40:b27e:1203::132"],
+    "kudos-prod": ["2a07:de40:b27e:1218::b10"],
     "limesurvey": ["2a07:de40:b27e:1203::b4"],
     "lnt": ["2a07:de40:b27e:1203::b42"],
     "logger-prg": ["2a07:de40:b27e:1215::a"],
