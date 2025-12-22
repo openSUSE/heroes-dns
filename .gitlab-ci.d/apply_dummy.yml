@@ -1,6 +1,6 @@
 deploy:
   image:
-    name: opensuse/busybox:latest
+    name: registry.opensuse.org/opensuse/busybox:latest
   stage: deploy
   tags:
     - docker
