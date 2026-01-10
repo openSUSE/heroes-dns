@@ -80,6 +80,7 @@ var HOSTS_OPENSUSE = {
     "riesling": ["2a07:de40:b27e:1203::b2"],
     "riesling3": ["2a07:de40:b27e:1203::b3"],
     "rpmlint": ["2a07:de40:b27e:1203::136"],
+    "sample-app": ["2a07:de40:b27e:1218::f1"],
     "seidr1": ["2a07:de40:b27e:1200::e"],
     "slc-devcon1": ["2a07:de40:617e:1801::de1"],
     "slc-devcon2": ["2a07:de40:617e:1801::de2"],
