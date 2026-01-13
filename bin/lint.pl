@@ -76,6 +76,11 @@ foreach my $file (@files) {
       $is_zone = 0;
       next;
     }
+    elsif ( $file eq 'zones/uyuni-project_org.js' ) {
+      # TODO: handle custom SPF/DKIM in zone
+      $is_zone = 0;
+      next;
+    }
     # parse );
     # as we expect D() to be the only top-level function in the file, the function ending can only belong to D()
     elsif ( $_ =~ /^\);$/ ) {
