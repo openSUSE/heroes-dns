@@ -16,6 +16,9 @@ D("uyuni-project.org", REG_OPENSUSE,
 
     CNAME      ("www",                            "uyuni-project.org.",                                   ),
 
+    MX         ("lists",                          42, "mx1.opensuse.org."                                 ),
+    MX         ("lists",                          42, "mx2.opensuse.org."                                 ),
+
     SPF_BUILDER ({
         label: "lists",
         ttl: "3h",
