@@ -5,6 +5,7 @@ deploy:
   stage: deploy
   tags:
     - docker
+    - prg2
   script:
     - |
         if [ -z "$POWERDNS_API_KEY_RW" ]
