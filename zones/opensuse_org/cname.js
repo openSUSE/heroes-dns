@@ -101,6 +101,7 @@ CNAME_BULK("opensuse.org", {
           "ip",
           "ipfs",
           "kubic",
+          "kudos",
           "lizards",
           "lnt",
           "manpages",
