@@ -211,6 +211,7 @@ CNAME_BULK("opensuse.org", {
           "obs-login-ucs",
           "obs-measure",
           "obs-telegraf",
+          "packages",
           "software",
           "software-stage",
       ],
