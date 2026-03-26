@@ -14,7 +14,7 @@ D("uyuni-project.org", REG_OPENSUSE,
     A          ("@",                              "185.199.111.153",                                      ),
     A          ("lists",                          "195.135.223.50",                                       ),
 
-    CNAME      ("www",                            "uyuni-project.org.",                                   ),
+    CNAME      ("www",                            "uyuni-project.github.io.",                             ),
 
     MX         ("lists",                          42, "mx1.opensuse.org."                                 ),
     MX         ("lists",                          42, "mx2.opensuse.org."                                 ),
