@@ -220,6 +220,7 @@ CNAME_BULK("opensuse.org", {
           "br",
           "buildresults",
           "errbit",
+          "gitexplorer",
           "glitchtip",
           "gs-stats",
           "gs-stats-stage",
