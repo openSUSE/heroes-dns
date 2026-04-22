@@ -13,6 +13,7 @@ D("uyuni-project.org", REG_OPENSUSE,
     A          ("@",                              "185.199.110.153",                                      ),
     A          ("@",                              "185.199.111.153",                                      ),
     A          ("lists",                          "195.135.223.50",                                       ),
+    A          ("test-reports",                   "3.69.247.162",                                         ),
 
     CNAME      ("www",                            "uyuni-project.github.io.",                             ),
 
