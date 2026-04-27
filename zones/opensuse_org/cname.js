@@ -224,6 +224,7 @@ CNAME_BULK("opensuse.org", {
           "glitchtip",
           "gs-stats",
           "gs-stats-stage",
+          "prs",
           "rabbit",
           "registry",
       ],
