@@ -1,0 +1,106 @@
+on:
+  - push
+
+jobs:
+  lint:
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/dns/containers/dnscontrol
+    steps:
+      - &checkout
+        name: checkout
+        run: |
+          mkdir ~/dns && cd ~/dns
+          git init
+          git remote add origin https://git.infra.opensuse.org/${FORGEJO_REPOSITORY}.git
+          git fetch --depth=1 origin ${FORGEJO_SHA}
+          git checkout ${FORGEJO_SHA}
+      - name: lint
+        run: cd ~/dns && bin/lint.pl
+      - name: fmt
+        run: |
+          cd ~/dns
+          out="../"$(basename $PWD)"-fmt"
+          mkdir "$out"
+          find . -mindepth 1 -type d -not -path './.*' -exec mkdir "$out"/{} \;
+          # unlike in earlier versions, fmt now only creates changed files
+          find . -type f -name '*.js' -exec dnscontrol fmt -i {} -o "$out"/{} \;
+          find "$out" -type f -name '*.js' | while read fmtpath
+          do
+            origpath="$(echo "$fmtpath" | sed "s?^"$out/"??")"
+            diff -w "$fmtpath" "$origpath"
+          done
+      - name: check
+        run: cd ~/dns && dnscontrol check
+
+  preview:
+    needs:
+      - lint
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/dns/containers/dnscontrol
+    outputs:
+      changed: ${{ steps.preview.outputs.changed }}
+    steps:
+      - *checkout
+      - name: preview
+        id: preview
+        env:
+          POWERDNS_API_KEY_RO: '${{ secrets.SEC_POWERDNS_API_KEY_RO }}'
+          POWERDNS_API_URL: '${{ vars.POWERDNS_API_URL }}'
+        run: |
+          cd ~/dns
+          # TODO: remove obsolete logic
+          if [ -z "$POWERDNS_API_KEY_RW" ] && [ -n "$POWERDNS_API_KEY_RO" ]
+          then
+            export POWERDNS_API_KEY=$POWERDNS_API_KEY_RO
+          elif [ -n "$POWERDNS_API_KEY_RW" ]
+          then
+            export POWERDNS_API_KEY=$POWERDNS_API_KEY_RW
+          else
+            exit 1
+          fi
+
+          for provider in $(jq -r 'keys | .[]' creds.json)
+          do
+            dnscontrol check-creds "$provider"
+          done
+
+          rc=0
+
+          dnscontrol preview --expect-no-changes --report report.json || rc=$?
+
+          c=$(jq '[.[]["corrections"]]|add' report.json)
+
+          if [ "$rc" -eq 1 ] && [ "$c" -gt 0 ]
+          then
+            echo 'changed=true' > $FORGEJO_OUTPUT
+          else
+            echo 'changed=false' > $FORGEJO_OUTPUT
+          fi
+
+  deploy:
+    if: forgejo.ref == 'refs/heads/production'
+    needs:
+      - preview
+    runs-on: normal
+    container:
+      image: registry.opensuse.org/opensuse/infrastructure/dns/containers/dnscontrol
+    steps:
+      - *checkout
+      - name: deploy
+        env:
+          POWERDNS_API_KEY: '${{ secrets.SEC_POWERDNS_API_KEY_RW }}'
+        run: |
+          cd ~/dns
+          echo 'Changed? ${{ needs.preview.outputs.changed }}.'
+          if [ '${{ needs.preview.outputs.changed }}' = 'true' ]
+          then
+            if [ -z "$POWERDNS_API_KEY" ]
+            then
+              exit 1
+            fi
+            dnscontrol push --report report.json
+          else
+            echo Nothing to do.
+          fi
