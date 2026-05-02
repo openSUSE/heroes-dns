@@ -91,6 +91,7 @@ jobs:
       - name: deploy
         env:
           POWERDNS_API_KEY: '${{ secrets.SEC_POWERDNS_API_KEY_RW }}'
+          POWERDNS_API_URL: '${{ vars.POWERDNS_API_URL }}'
         run: |
           cd ~/dns
           echo 'Changed? ${{ needs.preview.outputs.changed }}.'
