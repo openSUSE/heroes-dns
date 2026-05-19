@@ -4,7 +4,7 @@ This repository manages DNS zones.
 
 In scope are zones for all domains using the openSUSE community managed nameservers (ns{1,2,3,4}.opensuse.org), which includes zones for all internet domains available to the openSUSE community and reverse domains for networks in the openSUSE community infrastructure.
 
-Authoritative source of this repository is https://gitlab.infra.opensuse.org/infra/dns. Merge requests can be filed there, but access requires the openSUSE Heroes VPN.
+Authoritative source of this repository is https://git.infra.opensuse.org/infra/dns. Merge requests can be filed there, but access requires the openSUSE Heroes VPN.
 
 Read-only mirrors are available at:
   * https://github.com/openSUSE/heroes-dns
@@ -22,7 +22,7 @@ A pipeline runs [dnscontrol](https://docs.dnscontrol.org) to parse and deploy th
 
 ## Rules
 
-- openSUSE Heroes team members use merge requests in gitlab.i.o.o to submit changes
+- openSUSE Heroes team members use merge requests in git.i.o.o to submit changes
   * submitters should review at least the "preview" stage output of the merge request pipeline to
     confirm their change has the desired effect
   * changes should follow the common formatting style
