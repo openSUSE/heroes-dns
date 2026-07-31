@@ -219,6 +219,7 @@ CNAME_BULK("opensuse.org", {
           "amqp",
           "br",
           "buildresults",
+          "cq",
           "errbit",
           "gitexplorer",
           "glitchtip",
