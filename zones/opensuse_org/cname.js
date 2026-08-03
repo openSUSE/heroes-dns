@@ -200,7 +200,7 @@ CNAME_BULK("opensuse.org", {
       ],
   },
   "obs-login": {
-      "30m": [
+      "1h": [
           "api",
           "api-test",
           "build",
@@ -214,8 +214,6 @@ CNAME_BULK("opensuse.org", {
           "packages",
           "software",
           "software-stage",
-      ],
-      "1h": [
           "amqp",
           "br",
           "buildresults",
