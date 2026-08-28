@@ -216,6 +216,7 @@ CNAME_BULK("opensuse.org", {
           "gs-stats-stage",
           "obs-analyze",
           "obs-debug",
+          "obs-errbit-devel",
           "obs-grafana",
           "obs-login-ucs",
           "obs-measure",
