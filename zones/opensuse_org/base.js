@@ -189,6 +189,14 @@ D("opensuse.org", REG_OPENSUSE,
                   "54d4817b88"                                                                            ),
     TXT        ("lists",
                   "v=spf1 mx ~all"                                                                        ),
+
+    DKIM_BUILDER({
+                selector: "opensuse1",  // DKIM key for OBS notifications
+                keytype: "rsa",
+                servicetypes: ["email"],
+                pubkey: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA16Pp+o7oWkkaUdkjD4/3WhdwHKQ+mk5L9R8+ovXK3QeVDBC8gbhLy/EuYcMi8yWjyLhdAU3Ds5hWLqqB0hGnj6BhohzcNl+DEpbN5TwbFN0nYJ7ESy2DHG5rs+sW8/LKDlSyTRpZ4C7ZiDT0kuoiRr" +
+                        "Zun6pX9SgUCHezsjbtgI2zIB/7gYd36k0FZy/MDmE3WSImmhRMU32NOkJiO4xIyjCWJ0+tjaS1V3xZxRFBrSJTm3Mn37mmMQ6Z1ZIwbLCFXMbW5QOXvDFmEIVoTDuQPXmdJIcHg/x+jImkSu26NHmDo52ofdzmyAQXkUncnBOEu6fOXzhzTplk6QYc577N4wIDAQAB",
+    }),
 );
 
 AAAA_AND_PTR_BULK("opensuse.org", {
