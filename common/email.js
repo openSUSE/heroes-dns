@@ -1,6 +1,5 @@
 // DMARC for all domains
 var DMARC_OPENSUSE_ALL_MAIL = DMARC_BUILDER({
-    percent: 100,
     policy: "none",
     rua: [
         "mailto:admin-auto@opensuse.org!5m",
